@@ -17,7 +17,8 @@ env:
   TAG: ${{ github.sha }}
   REAL_TAG: $(date '+%Y%m%d%H%M%S')-${TAG:0:7}
   TEST_TAG: $(date '+%Y%m%d%H%M%S')-${${ github.sha }:0:7}
-  MY_VAR: $ (date +'% Y-% m-% d')
+  MY_VAR: $(date +'% Y-% m-% d')
+  STR1: 12345
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
