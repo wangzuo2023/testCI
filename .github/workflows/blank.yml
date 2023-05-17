@@ -15,11 +15,6 @@ on:
 
 env:
   TAG: ${{ github.sha }}
-  REAL_TAG: ${date '+%Y%m%d%H%M%S'}-${$TAG:0:7}
-  TEST_TAG: $(date '+%Y%m%d%H%M%S')-${${{ github.sha }}:0:7}
-  MY_VAR: $(date '+%Y%m%d%H%M%S')
-  MY_VAR1: $ (date +'% Y-% m-% d')
-  STR1: 12345
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -35,15 +30,13 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo $TAG
-          echo $TEST_TAG
-          echo $REAL_TAG
-          echo $MY_VAR
-          echo $MY_VAR1
+          echo "action_state=yellow" >> "$GITHUB_ENV"
+          echo "var1=$(date '+%Y%m%d%H%M%S')-${TAG:0:7}" >> "$GITHUB_ENV"
+
+      - name: Use the value
+        id: step_two
+        run: |
+          echo "${{ env.var1 }}"
+          echo "${{ env.action_state }}" # This will output 'yellow'
 
