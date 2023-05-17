@@ -44,3 +44,6 @@ jobs:
           echo $TEST_TAG
           echo $REAL_TAG
           echo $MY_VAR
+          echo $STR1
+          echo STR1
+          echo MY_VAR
