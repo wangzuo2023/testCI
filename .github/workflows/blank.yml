@@ -37,4 +37,17 @@ jobs:
         id: step_two
         run: |
           echo "${{ env.TAG }}" # This will output 'yellow'
+          
+      - name: build failure notification
+        if: failure()
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+             -d '{"msg_type":"text","content": {"text":"${{github.repository}}/${{github.ref}}:  Boom Interface Build failed.."}}' \
+             ${{secrets.FOXWALLET_MONITOR_HOOK_URL}}
+      - name: build success notification
+        if: success()
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+             -d '{"msg_type":"text","content": {"text":"${{github.repository}}/${{github.ref}}: Boom interface Build succeeded！"}}' \
+             ${{secrets.FOXWALLET_MONITOR_HOOK_URL}}
 
