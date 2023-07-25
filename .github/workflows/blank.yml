@@ -42,12 +42,12 @@ jobs:
         if: failure()
         run: |
           curl -X POST -H "Content-Type: application/json" \
-             -d '{"msg_type":"text","content": {"text":"${{github.repository}}/${{github.ref}}:  fox-backend workflow run failed.."}}' \
+             -d '{"msg_type":"text","content":{"text":"workflow run failed..","repositoryName":"{{github.repository}}","branchName":"{{github.ref}}"}}' \
              ${{secrets.FOXWALLET_MONITOR_HOOK_URL}}
       - name: build success notification
         if: success()
         run: |
           curl -X POST -H "Content-Type: application/json" \
-             -d '{"msg_type":"text","content": {"text":"${{github.repository}}/${{github.ref}}: fox-backend workflow run succeeded！"}}' \
+             -d '{"msg_type":"text","content":{"text":"workflow run succeeded!","repositoryName":"{{github.repository}}","branchName":"{{github.ref}}"}}' \
              ${{secrets.FOXWALLET_MONITOR_HOOK_URL}}
 
